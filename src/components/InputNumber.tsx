@@ -1,19 +1,28 @@
 type Props = {
   label: string;
   value: string;
-  width?: string;
+  wrapperWidth?: string;
+  inputWidth?: string;
   onChange: (value: string) => void;
 };
 
-export default function InputNumber({ label, value, width, onChange }: Props) {
+export default function InputNumber({
+  label,
+  value,
+  wrapperWidth,
+  inputWidth,
+  onChange,
+}: Props) {
   return (
-    <label className={`flex gap-2 items-center justify-between ${width}`}>
+    <label
+      className={`flex gap-2 items-center justify-between ${wrapperWidth}`}
+    >
       <span className="font-bold text-xl">{label}</span>
       <input
         type="number"
         value={value}
         onChange={(e) => onChange(removeLeadingZero(e.target.value || "0"))}
-        className="outline-none border text-xl px-2 py-3 rounded-xs"
+        className={`outline-none border text-xl px-2 py-2 rounded-xs ${inputWidth}`}
       />
     </label>
   );

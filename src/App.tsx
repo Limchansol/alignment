@@ -4,6 +4,7 @@ import "./App.css";
 import InputNumber from "./components/InputNumber";
 import Button from "./components/Button";
 import Text from "./components/Text";
+import Triangle from "./components/Triangle";
 
 type OutputType = {
   A: number | null;
@@ -45,40 +46,64 @@ export default function App() {
   };
 
   return (
-    <div className="text-neutral-700 flex flex-col items-center">
-      <InputNumber
-        label="a"
-        value={inputs.a}
-        onChange={(value) => setValuesByKey("a", value)}
-        width="w-52"
-      />
-      <InputNumber
-        label="b"
-        value={inputs.b}
-        onChange={(value) => setValuesByKey("b", value)}
-        width="w-52"
-      />
-      <InputNumber
-        label="c"
-        value={inputs.c}
-        onChange={(value) => setValuesByKey("c", value)}
-        width="w-52"
-      />
-      <Text title="A" value={outputs.A?.toString() || "-"} />
-      <Text title="B" value={outputs.B?.toString() || "-"} />
+    <div className="text-neutral-700 flex flex-col items-center p-4">
+      <div className="">
+        <InputNumber
+          label="a"
+          value={inputs.a}
+          onChange={(value) => setValuesByKey("a", value)}
+          wrapperWidth="w-28"
+          inputWidth="w-20"
+        />
 
-      <div className="flex flex-col gap-3">
+        <div className="relative h-[112px] my-4">
+          <div className="w-[500px] border border-neutral-950 absolute top-[70px]" />
+          <div className="flex justify-end gap-[180px]">
+            <div>
+              <Text title="A" value={outputs.A?.toString() || "-"} />
+              <Triangle borderColor="border-b-amber-950" />
+            </div>
+            <div>
+              <Text title="B" value={outputs.B?.toString() || "-"} />
+              <Triangle borderColor="border-b-amber-700" />
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col items-center w-fit">
+          <InputNumber
+            label="b"
+            value={inputs.b}
+            onChange={(value) => setValuesByKey("b", value)}
+            wrapperWidth="w-40"
+            inputWidth="w-32"
+          />
+          <div className="mb-8 mt-3 w-[200px] border border-red-600" />
+        </div>
+        <div className="flex flex-col items-center w-fit">
+          <InputNumber
+            label="c"
+            value={inputs.c}
+            onChange={(value) => setValuesByKey("c", value)}
+            wrapperWidth="w-40"
+            inputWidth="w-32"
+          />
+          <div className="mb-8 mt-3 w-[500px] border border-red-700" />
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-3 w-full justify-baseline px-5 mt-8">
         <InputNumber
           label="Face"
           value={inputs.face}
           onChange={(value) => setValuesByKey("face", value)}
-          width="w-[340px]"
+          wrapperWidth="w-[340px]"
         />
         <InputNumber
           label="Out Dial"
           value={inputs.outDial}
           onChange={(value) => setValuesByKey("outDial", value)}
-          width="w-[340px]"
+          wrapperWidth="w-[340px]"
         />
       </div>
       <Button text="계산하기" onClick={handleClick} />
