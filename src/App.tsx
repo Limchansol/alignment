@@ -82,6 +82,19 @@ export default function App() {
         />
       </div>
       <Button text="계산하기" onClick={handleClick} />
+      <Footnote />
+    </div>
+  );
+}
+
+function Footnote() {
+  return (
+    <div className="flex flex-col gap-1.5 mt-12 w-full px-12 relative">
+      <span className="text-red-700 text-2xl absolute top-[-16px] left-[28px]">
+        *
+      </span>
+      <span>A = b/a * F + O.D / 2</span>
+      <span>B = c/a * F + O.D / 2</span>
     </div>
   );
 }
