@@ -1,20 +1,19 @@
 type Props = {
   label: string;
   value: string;
+  width?: string;
   onChange: (value: string) => void;
 };
 
-export default function InputNumber({ label, value, onChange }: Props) {
-  console.log(label, value);
-
+export default function InputNumber({ label, value, width, onChange }: Props) {
   return (
-    <label className="flex gap-2">
-      <span className="font-bold">{label}</span>
+    <label className={`flex gap-2 items-center justify-between ${width}`}>
+      <span className="font-bold text-xl">{label}</span>
       <input
         type="number"
         value={value}
         onChange={(e) => onChange(removeLeadingZero(e.target.value || "0"))}
-        className="outline-none border"
+        className="outline-none border text-xl px-2 py-3 rounded-xs"
       />
     </label>
   );

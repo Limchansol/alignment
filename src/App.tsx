@@ -2,6 +2,8 @@ import { useState } from "react";
 
 import "./App.css";
 import InputNumber from "./components/InputNumber";
+import Button from "./components/Button";
+import Text from "./components/Text";
 
 type OutputType = {
   A: number | null;
@@ -19,7 +21,7 @@ export default function App() {
     setInputs((prev) => ({ ...prev, [key]: value }));
   };
 
-  const calculateOutputs = () => {
+  const handleClick = () => {
     validateInputs(inputs);
     const { a, b, c, face, outDial } = Object.fromEntries(
       Object.entries(inputs).map(([key, value]) => [key, parseFloat(value)])
@@ -43,37 +45,43 @@ export default function App() {
   };
 
   return (
-    <div>
+    <div className="text-neutral-700 flex flex-col items-center">
       <InputNumber
         label="a"
         value={inputs.a}
         onChange={(value) => setValuesByKey("a", value)}
+        width="w-52"
       />
       <InputNumber
         label="b"
         value={inputs.b}
         onChange={(value) => setValuesByKey("b", value)}
+        width="w-52"
       />
       <InputNumber
         label="c"
         value={inputs.c}
         onChange={(value) => setValuesByKey("c", value)}
+        width="w-52"
       />
-      <InputNumber
-        label="face"
-        value={inputs.face}
-        onChange={(value) => setValuesByKey("face", value)}
-      />
-      <InputNumber
-        label="OutDial"
-        value={inputs.outDial}
-        onChange={(value) => setValuesByKey("outDial", value)}
-      />
-      <div className="font-bold">A: {outputs.A}</div>
-      <div>B: {outputs.B}</div>
-      <button onClick={calculateOutputs} className="border cursor-pointer">
-        계산하기
-      </button>
+      <Text title="A" value={outputs.A?.toString() || "-"} />
+      <Text title="B" value={outputs.B?.toString() || "-"} />
+
+      <div className="flex flex-col gap-3">
+        <InputNumber
+          label="Face"
+          value={inputs.face}
+          onChange={(value) => setValuesByKey("face", value)}
+          width="w-[340px]"
+        />
+        <InputNumber
+          label="Out Dial"
+          value={inputs.outDial}
+          onChange={(value) => setValuesByKey("outDial", value)}
+          width="w-[340px]"
+        />
+      </div>
+      <Button text="계산하기" onClick={handleClick} />
     </div>
   );
 }
