@@ -1,11 +1,14 @@
 type Props = {
-  borderColor: string;
+  color: string;
 };
 
-export default function Triangle({ borderColor }: Props) {
+export default function Triangle({ color }: Props) {
   return (
-    <div
-      className={`w-0 h-0 border-[40px] border-transparent ${borderColor}`}
-    />
+    <span
+      className={`material-symbols-outlined ${color}`}
+      style={{ fontVariationSettings: '"FILL" 1', fontSize: "60px" }}
+    >
+      change_history
+    </span>
   );
 }

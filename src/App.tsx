@@ -5,6 +5,7 @@ import InputNumber from "./components/InputNumber";
 import Button from "./components/Button";
 import Text from "./components/Text";
 import Triangle from "./components/Triangle";
+import VerticalLine from "./components/VerticalLine";
 
 type OutputType = {
   A: number | null;
@@ -46,31 +47,33 @@ export default function App() {
   };
 
   return (
-    <div className="text-neutral-700 flex flex-col items-center p-4">
-      <div className="">
-        <InputNumber
-          label="a"
-          value={inputs.a}
-          onChange={(value) => setValuesByKey("a", value)}
-          wrapperWidth="w-28"
-          inputWidth="w-20"
-        />
-
-        <div className="relative h-[112px] my-4">
-          <div className="w-[500px] border border-neutral-950 absolute top-[70px]" />
-          <div className="flex justify-end gap-[180px]">
-            <div>
-              <Text title="A" value={outputs.A?.toString() || "-"} />
-              <Triangle borderColor="border-b-amber-950" />
-            </div>
-            <div>
-              <Text title="B" value={outputs.B?.toString() || "-"} />
-              <Triangle borderColor="border-b-amber-700" />
+    <div className="text-neutral-700 flex flex-col items-center p-8">
+      <div className="bg-blue-200 w-full max-w-[600px] relative">
+        <div className="flex items-center">
+          <InputNumber
+            label="a"
+            value={inputs.a}
+            onChange={(value) => setValuesByKey("a", value)}
+            wrapperWidth="w-20"
+            inputWidth="w-16"
+          />
+          <VerticalLine height="h-[112px]" />
+          <div className="relative h-[112px] my-4 grow ml-[-10px]">
+            <div className="w-full border border-neutral-950 absolute top-1/2" />
+            <div className="flex justify-end gap-[140px]">
+              <div className="bg-red-500 flex flex-col gap-3.5">
+                <Text title="A" value={outputs.A?.toString() || "-"} />
+                <Triangle color="text-amber-950" />
+              </div>
+              <div className="bg-red-500 flex flex-col gap-3.5">
+                <Text title="B" value={outputs.B?.toString() || "-"} />
+                <Triangle color="text-amber-700" />
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col items-center w-fit">
+        <div className="flex flex-col items-center w-fit absolute left-[90px]">
           <InputNumber
             label="b"
             value={inputs.b}
@@ -78,9 +81,9 @@ export default function App() {
             wrapperWidth="w-40"
             inputWidth="w-32"
           />
-          <div className="mb-8 mt-3 w-[200px] border border-red-600" />
+          <div className="mb-8 mt-3 w-[200px] border border-red-300" />
         </div>
-        <div className="flex flex-col items-center w-fit">
+        <div className="flex flex-col items-center w-fit absolute right-[0px] bottom-[-170px]">
           <InputNumber
             label="c"
             value={inputs.c}
@@ -88,9 +91,11 @@ export default function App() {
             wrapperWidth="w-40"
             inputWidth="w-32"
           />
-          <div className="mb-8 mt-3 w-[500px] border border-red-700" />
+          <div className="mb-8 mt-3 w-[420px] border  border-red-700" />
         </div>
       </div>
+
+      <div className="h-[200px]"></div>
 
       <div className="flex flex-col gap-3 w-full justify-baseline px-5 mt-8">
         <InputNumber
@@ -106,7 +111,9 @@ export default function App() {
           wrapperWidth="w-[340px]"
         />
       </div>
-      <Button text="계산하기" onClick={handleClick} />
+      <div className="max-w-[400px]">
+        <Button text="계산하기" onClick={handleClick} />
+      </div>
       <Footnote />
     </div>
   );
