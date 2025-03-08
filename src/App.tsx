@@ -6,6 +6,8 @@ import Button from "./components/Button";
 import Text from "./components/Text";
 import Triangle from "./components/Triangle";
 import VerticalLine from "./components/VerticalLine";
+import HorizontalLine from "./components/HorizontalLine";
+import DottedLine from "./components/DottedLine";
 
 type OutputType = {
   A: number | null;
@@ -47,70 +49,130 @@ export default function App() {
   };
 
   return (
-    <div className="text-neutral-700 flex flex-col items-center p-8">
-      <div className="bg-blue-200 w-full max-w-[600px] relative">
-        <div className="flex items-center">
-          <InputNumber
-            label="a"
-            value={inputs.a}
-            onChange={(value) => setValuesByKey("a", value)}
-            wrapperWidth="w-20"
-            inputWidth="w-16"
-          />
-          <VerticalLine height="h-[112px]" />
-          <div className="relative h-[112px] my-4 grow ml-[-10px]">
-            <div className="w-full border border-neutral-950 absolute top-1/2" />
-            <div className="flex justify-end gap-[140px]">
-              <div className="bg-red-500 flex flex-col gap-3.5">
-                <Text title="A" value={outputs.A?.toString() || "-"} />
-                <Triangle color="text-amber-950" />
+    <div className="text-neutral-700 flex flex-col items-center">
+      {/* 그래프 */}
+      <div className="bg-blue-100 pl-1.5 pr-4 pt-8 pb-4 w-full">
+        <div className=" w-full max-w-[800px] relative pl-[40px] mb-5 ">
+          {/* 높이 a */}
+          <div className="flex absolute left-[10px]">
+            <div className="font-bold text-2xl text-center pr-3 mt-[40px] ml-1 mr-[-8px] text-cyan-700">
+              a
+            </div>
+            <VerticalLine height="h-[120px]" />
+          </div>
+
+          {/* 수직선과 점 AB */}
+          <div className="h-[120px] grid pt-[19px] grid-cols-[1fr_1.3fr]">
+            <DottedLine
+              height="h-[208px]"
+              left="left-[40px]"
+              top="top-[60px]"
+            />
+            {/* 수직선 */}
+            <div className="h-[3px] w-[calc(100%-40px)] bg-neutral-700 top-[60px] absolute left-[40px]" />
+
+            {/* 점 A */}
+            <div className="flex justify-end relative">
+              <DottedLine
+                height="h-[124px]"
+                right="right-[29px]"
+                top="top-[44px]"
+              />
+              <div className="flex flex-col items-center w-fit">
+                <div className="font-bold text-2xl">A</div>
+                <Triangle color="text-neutral-700" />
               </div>
-              <div className="bg-red-500 flex flex-col gap-3.5">
-                <Text title="B" value={outputs.B?.toString() || "-"} />
-                <Triangle color="text-amber-700" />
+            </div>
+
+            {/* 점 B */}
+            <div className="flex justify-end relative">
+              <DottedLine
+                height="h-[206px]"
+                right="right-[29px]"
+                top="top-[44px]"
+              />
+              <div className="flex flex-col items-center w-fit">
+                <div className="font-bold text-2xl">B</div>
+                <Triangle color="text-neutral-700" />
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="flex flex-col items-center w-fit absolute left-[90px]">
+          {/* 길이 b */}
+          <div className="grid pt-[19px] grid-cols-[1fr_1.3fr]">
+            <div className="mt-[20px] pr-[22px]">
+              <HorizontalLine />
+              <div className="font-bold text-2xl text-center pr-3 mt-[-8px] text-emerald-600">
+                b
+              </div>
+            </div>
+          </div>
+
+          {/* 길이 c */}
+          <div className="mt-[32px] mr-[22px]">
+            <HorizontalLine />
+            <div className="font-bold text-2xl text-center pr-3 mt-[-8px] text-purple-800">
+              c
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="w-full px-5 mt-8 flex flex-col gap-11">
+        {/* 길이 a b c */}
+        <div className="flex flex-col gap-3">
+          <InputNumber
+            label="a"
+            labelColor="text-cyan-700"
+            value={inputs.a}
+            onChange={(value) => setValuesByKey("a", value)}
+            wrapperWidth="w-40"
+            inputWidth="w-32"
+          />
           <InputNumber
             label="b"
+            labelColor="text-emerald-600"
             value={inputs.b}
             onChange={(value) => setValuesByKey("b", value)}
             wrapperWidth="w-40"
             inputWidth="w-32"
           />
-          <div className="mb-8 mt-3 w-[200px] border border-red-300" />
-        </div>
-        <div className="flex flex-col items-center w-fit absolute right-[0px] bottom-[-170px]">
           <InputNumber
             label="c"
+            labelColor="text-purple-800"
             value={inputs.c}
             onChange={(value) => setValuesByKey("c", value)}
             wrapperWidth="w-40"
             inputWidth="w-32"
           />
-          <div className="mb-8 mt-3 w-[420px] border  border-red-700" />
+        </div>
+
+        {/* 기타 입력값 face OD*/}
+        <div className="flex flex-col gap-3">
+          <InputNumber
+            label="Face"
+            value={inputs.face}
+            onChange={(value) => setValuesByKey("face", value)}
+            wrapperWidth="w-[300px]"
+            inputWidth="w-44"
+          />
+          <InputNumber
+            label="Out Dial"
+            value={inputs.outDial}
+            onChange={(value) => setValuesByKey("outDial", value)}
+            wrapperWidth="w-[300px]"
+            inputWidth="w-44"
+          />
+        </div>
+
+        {/* 결과 A B */}
+        <div className="flex flex-col gap-3">
+          <Text title="A" value={outputs.A?.toString() || "-"} />
+          <Text title="B" value={outputs.B?.toString() || "-"} />
         </div>
       </div>
 
-      <div className="h-[200px]"></div>
-
-      <div className="flex flex-col gap-3 w-full justify-baseline px-5 mt-8">
-        <InputNumber
-          label="Face"
-          value={inputs.face}
-          onChange={(value) => setValuesByKey("face", value)}
-          wrapperWidth="w-[340px]"
-        />
-        <InputNumber
-          label="Out Dial"
-          value={inputs.outDial}
-          onChange={(value) => setValuesByKey("outDial", value)}
-          wrapperWidth="w-[340px]"
-        />
-      </div>
+      {/* 계산 버튼 */}
       <div className="max-w-[400px]">
         <Button text="계산하기" onClick={handleClick} />
       </div>

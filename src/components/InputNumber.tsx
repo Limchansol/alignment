@@ -1,5 +1,6 @@
 type Props = {
   label: string;
+  labelColor?: string;
   value: string;
   wrapperWidth?: string;
   inputWidth?: string;
@@ -8,6 +9,7 @@ type Props = {
 
 export default function InputNumber({
   label,
+  labelColor,
   value,
   wrapperWidth,
   inputWidth,
@@ -17,7 +19,7 @@ export default function InputNumber({
     <label
       className={`flex gap-2 items-center justify-between ${wrapperWidth}`}
     >
-      <span className="font-bold text-xl">{label}</span>
+      <span className={`font-bold text-xl ${labelColor}`}>{label}</span>
       <input
         type="number"
         value={value}
