@@ -22,6 +22,7 @@ export default function App() {
   const [outputs, setOutputs] = useState<OutputType>(INIT_OUTPUTS);
 
   const setValuesByKey = (key: keyof typeof INIT_INPUTS, value: string) => {
+    console.log("set values: " + value);
     setInputs((prev) => ({ ...prev, [key]: value }));
   };
 

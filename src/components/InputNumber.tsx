@@ -21,22 +21,40 @@ export default function InputNumber({
     >
       <span className={`font-bold text-xl ${labelColor}`}>{label}</span>
       <input
-        type="number"
+        type="text"
+        inputMode="numeric"
         value={value}
-        onChange={(e) => onChange(removeLeadingZero(e.target.value || "0"))}
+        onChange={(e) => {
+          console.log(e.target.value);
+          onChange(validateNumber(e.target.value || "0"));
+        }}
         className={`outline-none border text-xl px-2 py-2 rounded-xs ${inputWidth}`}
       />
     </label>
   );
 }
 
-const removeLeadingZero = (value: string) => {
-  if (value === "0" || value === "00") return "0";
+const validateNumber = (value: string): string => {
+  // 1. 숫자, 소수점, 음수 기호만 남기고 나머지 제거
+  value = value.replace(/[^-.\d]/g, "");
+
+  // 2. 음수 기호 정리 (맨 앞에 오는 '-'만 유지)
+  const isNegative = value.startsWith("-");
+  const isNegativeSign = value === "0-";
+  value = value.replace(/-/g, ""); // 모든 '-' 제거
+  if (isNegative) value = "-" + value; // 맨 앞에 '-' 복원
+  else if (isNegativeSign) value = "-";
+
+  // 3. 소수점 하나만 유지
+  const parts = value.split(".");
+  if (parts.length > 2) {
+    value = parts[0] + "." + parts.slice(1).join("").replace(/\./g, "");
+  }
+
+  // 4. 불필요한 0 제거
+  if (value === "0" || value === "-0") return "0"; // 단독 0은 유지
 
   return value.includes(".")
-    ? // 소수점 앞에 0만 있을 때는 0을 하나만 남기고,
-      // 소수점 앞에 다른 숫자가 있다면 0들을 모두 제거
-      value.replace(/^(-?)0*(?=\d)/, "$1")
-    : // 소수점이 없으면 앞의 0들을 전부 제거
-      value.replace(/^(-?)0+/, "$1");
+    ? value.replace(/^(-?)0*(?=\d)/, "$1") // 소수점 앞 불필요한 0 제거
+    : value.replace(/^(-?)0+/, "$1"); // 정수에서 앞의 0 제거
 };
