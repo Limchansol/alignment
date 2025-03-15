@@ -194,5 +194,7 @@ function Footnote() {
   );
 }
 
-const calculateOutput = (a: number, b: number, face: number, od: number) =>
-  (b / a) * face + od / 2;
+const calculateOutput = (a: number, b: number, face: number, od: number) => {
+  const result = (b / a) * face + od / 2;
+  return parseFloat(result.toFixed(3));
+};
