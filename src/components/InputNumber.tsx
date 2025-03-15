@@ -24,10 +24,7 @@ export default function InputNumber({
         type="text"
         inputMode="numeric"
         value={value}
-        onChange={(e) => {
-          console.log(e.target.value);
-          onChange(validateNumber(e.target.value || "0"));
-        }}
+        onChange={(e) => onChange(validateNumber(e.target.value || "0"))}
         className={`outline-none border text-xl px-2 py-2 rounded-xs ${inputWidth}`}
       />
     </label>

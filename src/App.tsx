@@ -37,11 +37,15 @@ export default function App() {
   };
 
   const validateInputs = (inputs: typeof INIT_INPUTS) => {
+    const { a, b, c } = inputs;
     try {
-      if (parseFloat(inputs.a) === 0) {
+      if (parseFloat(a) === 0) {
         throw new Error("a는 0이 될 수 없습니다.");
       }
-      if (parseFloat(inputs.b) >= parseFloat(inputs.c)) {
+      if (parseFloat(a) < 0 || parseFloat(b) < 0 || parseFloat(c) < 0) {
+        throw new Error("a, b, c는 음수가 될 수 없습니다.");
+      }
+      if (parseFloat(b) >= parseFloat(c)) {
         throw new Error("b가 c보다 작아야 합니다.");
       }
     } catch (e) {
