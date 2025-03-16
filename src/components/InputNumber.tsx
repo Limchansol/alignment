@@ -48,9 +48,11 @@ const validateNumber = (value: string): string => {
   }
 
   // 4. 불필요한 0 제거
-  if (value === "0" || value === "-0") return "0"; // 단독 0은 유지
+  if (value.includes(".")) {
+    value = value.replace(/^(-?)0*(?=\d)/, "$1"); // 소수점 앞 불필요한 0 제거
+  } else {
+    value = value.replace(/^(-?)0+(?=\d)/, "$1"); // 정수에서 앞의 0 제거
+  }
 
-  return value.includes(".")
-    ? value.replace(/^(-?)0*(?=\d)/, "$1") // 소수점 앞 불필요한 0 제거
-    : value.replace(/^(-?)0+/, "$1"); // 정수에서 앞의 0 제거
+  return value;
 };
