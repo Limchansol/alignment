@@ -22,7 +22,6 @@ export default function InputNumber({
       <span className={`font-bold text-xl ${labelColor}`}>{label}</span>
       <input
         type="text"
-        inputMode="numeric"
         value={value}
         onChange={(e) => onChange(validateNumber(e.target.value || "0"))}
         className={`outline-none border text-xl px-2 py-2 rounded-xs ${inputWidth}`}
