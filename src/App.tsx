@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useReducer, useState } from "react";
 
 import "./App.css";
 import InputNumber from "./components/InputNumber";
@@ -20,6 +20,19 @@ const INIT_OUTPUTS = { A: null, B: null };
 export default function App() {
   const [inputs, setInputs] = useState(INIT_INPUTS);
   const [outputs, setOutputs] = useState<OutputType>(INIT_OUTPUTS);
+  const [round, toggleRound] = useReducer((x) => !x, true);
+  const finalOutputA =
+    outputs.A !== null
+      ? round
+        ? outputs.A.toFixed(3)
+        : outputs.A.toString()
+      : "-";
+  const finalOutputB =
+    outputs.B !== null
+      ? round
+        ? outputs.B.toFixed(3)
+        : outputs.B.toString()
+      : "-";
 
   const setValuesByKey = (key: keyof typeof INIT_INPUTS, value: string) => {
     setInputs((prev) => ({ ...prev, [key]: value }));
@@ -173,8 +186,12 @@ export default function App() {
         <div className="border border-neutral-300" />
         {/* 결과 A B */}
         <div className="flex flex-col gap-3">
-          <Text title="A" value={outputs.A?.toString() || "-"} />
-          <Text title="B" value={outputs.B?.toString() || "-"} />
+          <div className="flex gap-1.5 ml-px">
+            <input type="checkbox" checked={round} onChange={toggleRound} />
+            <span className="text-sm">소수점 반올림</span>
+          </div>
+          <Text title="A" value={finalOutputA} />
+          <Text title="B" value={finalOutputB} />
         </div>
       </div>
 
@@ -199,7 +216,5 @@ function Footnote() {
   );
 }
 
-const calculateOutput = (a: number, b: number, face: number, od: number) => {
-  const result = (b / a) * face + od / 2;
-  return parseFloat(result.toFixed(3));
-};
+const calculateOutput = (a: number, b: number, face: number, od: number) =>
+  (b / a) * face + od / 2;
